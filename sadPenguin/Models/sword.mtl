@@ -1,0 +1,33 @@
+# Blender 3.4.1 MTL File: 'None'
+# www.blender.org
+
+newmtl Material_#3
+Ns 28.284269
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd E:/PROGRAMOZAS/graph/sadPenguin/Материалы/1758111.5aa283e9c9e5c/tabak.jpg
+map_Bump -bm 0.300000 E:/PROGRAMOZAS/graph/sadPenguin/Материалы/1758111.5aa283e9c9e5c/tabak.jpg
+
+newmtl Material_#6
+Ns 319.999939
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd E:/PROGRAMOZAS/graph/sadPenguin/Материалы/566202.575e72562c14c/Tileable_metal_scratch_rust_texture.jpg
+
+newmtl Material_#7
+Ns 639.999695
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd E:/PROGRAMOZAS/graph/sadPenguin/Материалы/2500659.5d39f8da9f226/Dirt Metal/Texture/Dirt Metal.jpg
