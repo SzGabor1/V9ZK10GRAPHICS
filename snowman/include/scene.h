@@ -6,12 +6,6 @@
 #include <math.h>
 #include <obj/model.h>
 
-typedef struct
-{
-    float x, y, z; // csepp pozíciója
-    float speed;   // csepp sebessége
-} Drop;
-
 typedef struct Scene
 {
 
