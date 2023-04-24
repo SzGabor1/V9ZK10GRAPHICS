@@ -42,6 +42,8 @@ typedef struct Scene
 
 } Scene;
 
+/* variables for water */
+
 /**
  * Initialize the scene by loading models.
  */
@@ -73,5 +75,7 @@ void render_scene(const Scene *scene);
 void draw_origin();
 
 void help(GLuint texture);
+
+void drawWater();
 
 #endif /* SCENE_H */

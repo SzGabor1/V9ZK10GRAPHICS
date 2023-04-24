@@ -1,10 +1,17 @@
+
 #include "scene.h"
 
 #include <obj/load.h>
 #include <obj/draw.h>
 
+float waterPoints[45][45][3];
+int wiggleCount = 0;
+float hold;
+
 void init_scene(Scene *scene)
 {
+
+    glEnable(GL_FOG);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -47,6 +54,18 @@ void init_scene(Scene *scene)
     scene->stab_count = 0;
     scene->sword_pulled_out = 1;
     scene->end_textrue_id = load_texture("assets/textures/gameover.jpg");
+
+    // init water points
+    int x, y;
+    for (x = 0; x < 45; x++)
+    {
+        for (y = 0; y < 45; y++)
+        {
+            waterPoints[x][y][0] = (x / 5.0f) - 4.5f;
+            waterPoints[x][y][1] = (y / 5.0f) - 4.5f;
+            waterPoints[x][y][2] = sin((((x / 5.0f) * 40.0f) / 360.0f) * 3.141592654 * 2.0f);
+        }
+    }
 }
 
 void set_lighting(float x)
@@ -135,6 +154,8 @@ void render_scene(const Scene *scene)
     {
         help(scene->end_textrue_id);
     }
+
+    drawWater();
 }
 
 void draw_origin()
@@ -158,11 +179,10 @@ void draw_origin()
 
 void help(GLuint texture)
 {
-
-    glDisable(GL_CULL_FACE);
+    glDisable(GL_FOG);
     glDisable(GL_LIGHTING);
-    glDisable(GL_DEPTH_TEST);
     glEnable(GL_COLOR_MATERIAL);
+    glDisable(GL_DEPTH_TEST);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -181,8 +201,65 @@ void help(GLuint texture)
     glVertex3d(-2, -1.5, -3);
     glEnd();
 
+    glEnable(GL_DEPTH_TEST);
     glDisable(GL_COLOR_MATERIAL);
     glEnable(GL_LIGHTING);
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
+    glEnable(GL_FOG);
+}
+
+void drawWater()
+{
+    int x, y;
+    float float_x, float_y, float_xb, float_yb;
+    glPushMatrix();
+    glDisable(GL_LIGHTING);
+    glTranslatef(0.0f, 0.0f, -0.5f);
+    glScalef(10.0f, 10.0f, 0.5f);
+    // color my water to blue
+    glColor3f(1.0f, 0.0f, 0.0f);
+
+    glBegin(GL_QUADS);
+    {
+        for (x = 0; x < 44; x++)
+        {
+            for (y = 0; y < 44; y++)
+            {
+                float_x = (x) / 44.0f;
+                float_y = (y) / 44.0f;
+                float_xb = (x + 1) / 44.0f;
+                float_yb = (y + 1) / 44.0f;
+
+                glTexCoord2f(float_x, float_y);
+                glVertex3f(waterPoints[x][y][0], waterPoints[x][y][1], waterPoints[x][y][2]);
+
+                glTexCoord2f(float_x, float_yb);
+                glVertex3f(waterPoints[x][y + 1][0], waterPoints[x][y + 1][1], waterPoints[x][y + 1][2]);
+
+                glTexCoord2f(float_xb, float_yb);
+                glVertex3f(waterPoints[x + 1][y + 1][0], waterPoints[x + 1][y + 1][1], waterPoints[x + 1][y + 1][2]);
+
+                glTexCoord2f(float_xb, float_y);
+                glVertex3f(waterPoints[x + 1][y][0], waterPoints[x + 1][y][1], waterPoints[x + 1][y][2]);
+            }
+        }
+    }
+    glEnd();
+
+    if (wiggleCount == 10)
+    {
+        for (y = 0; y < 44; y++)
+        {
+            hold = waterPoints[0][y][2];
+            for (x = 0; x < 44; x++)
+            {
+                waterPoints[x][y][2] = waterPoints[x + 1][y][2];
+            }
+            waterPoints[44][y][2] = hold;
+        }
+        wiggleCount = 0;
+    }
+    wiggleCount++;
+
+    glEnable(GL_LIGHTING);
+    glPopMatrix();
 }
