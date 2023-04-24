@@ -1,6 +1,8 @@
 A hóember.
 
 A demo egy rosszindulatú óvodás csínytevését mutatja be. Ahelyett hogy lerombolná a lányok által épített remekművet, egy karddal szurkálja meg. A fiú célja hogy legalább 3x szúrja meg a hóembert utána véget ér a szimuláció. 
+A játékban található ütközés érzékelés (nem lehet kimenni a pályáról / belemenni az objektumokba)
+Láva hullámzik sinus függvény alapján.
     
     Textúrák: https://drive.google.com/drive/folders/1GFGNtvh7nvh-MiQWSBcvAAWxez80wKG2?usp=sharing
 
