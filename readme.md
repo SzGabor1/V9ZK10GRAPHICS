@@ -8,7 +8,7 @@ A hóember hátralévő életpontjait a jobb felső sarokban kijelzi.
 25% erősségű köd fedi a pályát.
 
     
-    Textúrák: https://drive.google.com/drive/folders/1GFGNtvh7nvh-MiQWSBcvAAWxez80wKG2?usp=sharing
+    Assets: https://drive.google.com/drive/folders/1GFGNtvh7nvh-MiQWSBcvAAWxez80wKG2?usp=sharing
 
     F1 - segítség megnyitása/bezárása
     Irányítás: W/A/S/D - mozgás
