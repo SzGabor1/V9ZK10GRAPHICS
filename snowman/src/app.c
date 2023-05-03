@@ -17,7 +17,7 @@ void init_app(App *app, int width, int height)
     }
 
     app->window = SDL_CreateWindow(
-        "Cube!",
+        "Snowman!",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         width, height,
         SDL_WINDOW_OPENGL);
@@ -140,7 +140,7 @@ void handle_app_events(App *app)
                 app->scene.light -= 0.1;
                 break;
             case SDL_SCANCODE_UP:
-                app->scene.sword.sword_y += 0.1;
+                app->scene.sword.speed.y = 3;
                 if (app->scene.sword.sword_y > -1.5f && app->scene.sword.sword_pulled_out == 1) // if sword stab the snowman
                 {
                     printf("stabbed");
@@ -150,7 +150,7 @@ void handle_app_events(App *app)
                 }
                 break;
             case SDL_SCANCODE_DOWN:
-                app->scene.sword.sword_y -= 0.1;
+                app->scene.sword.speed.y = -3;
                 if (app->scene.sword.sword_y < -2.0f && app->scene.sword.sword_pulled_out == 0) // if sword stab the snowman
                 {
                     printf("Pulled out");
@@ -178,6 +178,10 @@ void handle_app_events(App *app)
         case SDL_KEYUP:
             switch (event.key.keysym.scancode)
             {
+            case SDL_SCANCODE_UP:
+            case SDL_SCANCODE_DOWN:
+                app->scene.sword.speed.y = 0;
+                break;
             case SDL_SCANCODE_W:
             case SDL_SCANCODE_S:
                 set_camera_speed(&(app->camera), 0);
@@ -222,6 +226,8 @@ void update_app(App *app)
     current_time = (double)SDL_GetTicks() / 1000;
     elapsed_time = current_time - app->uptime;
     app->uptime = current_time;
+
+    app->scene.sword.sword_y += app->scene.sword.speed.y * elapsed_time;
 
     update_camera(&(app->camera), elapsed_time);
     update_scene(&(app->scene));

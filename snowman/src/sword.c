@@ -7,6 +7,7 @@ void init_sword(Sword *sword)
     sword->health_texture_id = load_texture("assets/textures/h3.jpg");
     sword->sword_y = -2.5f;
     sword->stab_count = 0;
+    sword->speed.y = 0;
     sword->sword_pulled_out = 1;
 }
 

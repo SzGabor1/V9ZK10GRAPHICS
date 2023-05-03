@@ -10,6 +10,7 @@
 typedef struct Sword
 {
 
+    vec3 speed;
     Model sword;
     GLuint sword_texture_id;
     GLuint health_texture_id;

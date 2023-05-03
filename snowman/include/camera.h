@@ -25,6 +25,8 @@ void set_camera_speed(Camera *camera, double speed);
 
 void set_camera_side_speed(Camera *camera, double speed);
 
+void show_texture_preview();
+
 int check_collisions(vec3 newPosition);
 
 int calc_collision(vec3 newPosition, float posX, float posY, float boxSizeX, float boxSizeY);
