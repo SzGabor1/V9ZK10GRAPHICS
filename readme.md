@@ -6,7 +6,6 @@ Külső nézetből követhetjük figyelemmel ahogy a szúrások végbemennek.
 A játékban található ütközés érzékelés (nem lehet kimenni a pályáról / belemenni az objektumokba)
 A hóember hátralévő életpontjait a jobb felső sarokban kijelzi.
 25% erősségű köd fedi a pályát.
-Csillog a kard.
 
     
     Assets: https://drive.google.com/drive/folders/1GFGNtvh7nvh-MiQWSBcvAAWxez80wKG2?usp=sharing
