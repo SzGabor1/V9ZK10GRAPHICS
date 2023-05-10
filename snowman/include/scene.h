@@ -26,6 +26,9 @@ typedef struct Scene
 
     float light;
     GLuint end_textrue_id;
+    GLuint hp_1_texture_id;
+    GLuint hp_2_texture_id;
+    GLuint hp_3_texture_id;
 
     Sword sword;
 

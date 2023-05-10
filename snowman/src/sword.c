@@ -4,7 +4,17 @@ void init_sword(Sword *sword)
 {
     load_model(&(sword->sword), "assets/models/sword.obj");
     sword->sword_texture_id = load_texture("assets/textures/sword.jpg");
-    sword->health_texture_id = load_texture("assets/textures/h3.jpg");
+
+    sword->sword_material = (Material){
+        (Color){1.0, 1.0, 1.0}, // Ambient color
+        (Color){1.0, 1.0, 1.0}, // Diffuse color
+        (Color){1.0, 1.0, 1.0}, // Specular color (added)
+        0.0};
+
+    sword->hp_3_texture_id = load_texture("assets/textures/h3.jpg");
+    sword->hp_2_texture_id = load_texture("assets/textures/h2.jpg");
+    sword->hp_1_texture_id = load_texture("assets/textures/h1.jpg");
+    sword->hp_0_texture_id = load_texture("assets/textures/h0.jpg");
     sword->sword_y = -2.5f;
     sword->stab_count = 0;
     sword->speed.y = 0;
@@ -13,18 +23,18 @@ void init_sword(Sword *sword)
 
 void health(Sword *sword)
 {
-
+    GLuint health = sword->hp_3_texture_id;
     if (sword->stab_count == 1)
     {
-        sword->health_texture_id = load_texture("assets/textures/h2.jpg");
+        health = sword->hp_2_texture_id;
     }
     else if (sword->stab_count == 2)
     {
-        sword->health_texture_id = load_texture("assets/textures/h1.jpg");
+        health = sword->hp_1_texture_id;
     }
     else if (sword->stab_count > 3)
     {
-        sword->health_texture_id = load_texture("assets/textures/h0.jpg");
+        health = sword->hp_0_texture_id;
     }
 
     glDisable(GL_LIGHTING);
@@ -35,7 +45,7 @@ void health(Sword *sword)
     glLoadIdentity();
 
     glColor3f(1, 1, 1);
-    glBindTexture(GL_TEXTURE_2D, sword->health_texture_id);
+    glBindTexture(GL_TEXTURE_2D, health);
 
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
