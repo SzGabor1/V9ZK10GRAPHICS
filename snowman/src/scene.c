@@ -6,9 +6,8 @@
 
 void init_scene(Scene *scene)
 {
-
-    glEnable(GL_FOG);
-    glFogf(GL_FOG_DENSITY, 0.25);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -46,6 +45,13 @@ void init_scene(Scene *scene)
     scene->showHelp = 1;
 
     init_sword(&(scene->sword));
+
+    glEnable(GL_FOG);
+    GLfloat fogColor[] = {0.5f, 0.5f, 0.5f, 1.0f};
+    glFogfv(GL_FOG_COLOR, fogColor);
+    glFogi(GL_FOG_MODE, GL_LINEAR);
+    scene->fogposition = 0.0f;
+    scene->fogdirection = 0.0f;
 }
 
 void set_lighting(float x)
@@ -88,10 +94,27 @@ void set_material(const Material *material)
 void update_scene(Scene *scene)
 {
     set_lighting(scene->light);
-}
 
+    scene->fogposition += 0.02f * scene->fogdirection;
+    if (scene->fogposition >= 20.0f || scene->fogposition <= -20.0f)
+        scene->fogdirection *= -1.0f;
+
+    glFogf(GL_FOG_START, scene->fogposition);
+    glFogf(GL_FOG_END, scene->fogposition + 5.0f);
+}
 void render_scene(const Scene *scene)
 {
+
+    // sword
+
+    glPushMatrix();
+    glVertex3f(0.5, -2.5, 1);
+    glTranslatef(0.5, scene->sword.sword_y, 1);
+    glScalef(0.5, 0.5, 0.5);
+    draw_model(&(scene->sword.sword));
+    glBindTexture(GL_TEXTURE_2D, scene->sword.sword_texture_id);
+    glRotated(0, 1, 0, 0);
+    glPopMatrix();
 
     // ground
     glPushMatrix();
@@ -113,23 +136,10 @@ void render_scene(const Scene *scene)
     glColor3f(1, 1, 1);
     glPushMatrix();
     glScalef(0.5, 0.5, 0.5);
-    // set_material(&(scene->sword.sword_material));
     glBindTexture(GL_TEXTURE_2D, scene->penguin_texture_id);
     glRotated(90, 1, 0, 0);
     glTranslatef(1, 0, 1);
     draw_model(&(scene->penguin));
-    glPopMatrix();
-
-    // sword
-
-    glPushMatrix();
-    glVertex3f(0.5, -2.5, 1);
-    glTranslatef(0.5, scene->sword.sword_y, 1);
-    glScalef(0.5, 0.5, 0.5);
-    set_material(&(scene->sword.sword_material));
-    // glBindTexture(GL_TEXTURE_2D, scene->sword.sword_texture_id);
-    glRotated(0, 1, 0, 0);
-    draw_model(&(scene->sword.sword));
     glPopMatrix();
 
     health(&(scene->sword));
@@ -162,7 +172,7 @@ void draw_origin()
 void help(GLuint texture)
 {
     glDisable(GL_FOG);
-    glDisable(GL_LIGHTING);
+    //  glDisable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
     glDisable(GL_DEPTH_TEST);
 
@@ -185,6 +195,6 @@ void help(GLuint texture)
 
     glEnable(GL_DEPTH_TEST);
     glDisable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHTING);
+    //  glEnable(GL_LIGHTING);
     glEnable(GL_FOG);
 }

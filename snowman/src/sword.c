@@ -4,13 +4,6 @@ void init_sword(Sword *sword)
 {
     load_model(&(sword->sword), "assets/models/sword.obj");
     sword->sword_texture_id = load_texture("assets/textures/sword.jpg");
-
-    sword->sword_material = (Material){
-        (Color){1.0, 1.0, 1.0}, // Ambient color
-        (Color){1.0, 1.0, 1.0}, // Diffuse color
-        (Color){1.0, 1.0, 1.0}, // Specular color (added)
-        0.0};
-
     sword->hp_3_texture_id = load_texture("assets/textures/h3.jpg");
     sword->hp_2_texture_id = load_texture("assets/textures/h2.jpg");
     sword->hp_1_texture_id = load_texture("assets/textures/h1.jpg");

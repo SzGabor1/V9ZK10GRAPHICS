@@ -99,7 +99,7 @@ void reshape(GLsizei width, GLsizei height)
     glFrustum(
         -.08, .08,
         -.06, .06,
-        .1, 10);
+        .1, 100);
 }
 
 void handle_app_events(App *app)
@@ -133,10 +133,10 @@ void handle_app_events(App *app)
             case SDL_SCANCODE_D:
                 set_camera_side_speed(&(app->camera), -1);
                 break;
-            case SDL_SCANCODE_KP_PLUS:
+            case SDL_SCANCODE_1:
                 app->scene.light += 0.1;
                 break;
-            case SDL_SCANCODE_KP_MINUS:
+            case SDL_SCANCODE_2:
                 app->scene.light -= 0.1;
                 break;
             case SDL_SCANCODE_UP:
@@ -228,9 +228,10 @@ void update_app(App *app)
     app->uptime = current_time;
 
     app->scene.sword.sword_y += app->scene.sword.speed.y * elapsed_time;
-
     update_camera(&(app->camera), elapsed_time);
     update_scene(&(app->scene));
+
+    app->scene.fogposition = (sin(current_time)) + 4;
 }
 
 void render_app(App *app)

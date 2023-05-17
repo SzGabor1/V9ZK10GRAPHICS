@@ -14,8 +14,6 @@
 typedef struct Sword
 {
 
-    Material sword_material;
-
     vec3 speed;
     Model sword;
     GLuint sword_texture_id;

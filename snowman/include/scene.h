@@ -32,6 +32,10 @@ typedef struct Scene
 
     Sword sword;
 
+    float fogstrength;
+    float fogposition;
+    float fogdirection;
+
 } Scene;
 
 void init_scene(Scene *scene);
