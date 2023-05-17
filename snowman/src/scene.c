@@ -105,17 +105,6 @@ void update_scene(Scene *scene)
 void render_scene(const Scene *scene)
 {
 
-    // sword
-
-    glPushMatrix();
-    glVertex3f(0.5, -2.5, 1);
-    glTranslatef(0.5, scene->sword.sword_y, 1);
-    glScalef(0.5, 0.5, 0.5);
-    draw_model(&(scene->sword.sword));
-    glBindTexture(GL_TEXTURE_2D, scene->sword.sword_texture_id);
-    glRotated(0, 1, 0, 0);
-    glPopMatrix();
-
     // ground
     glPushMatrix();
     glScalef(0.5, 0.5, 0.5);
@@ -140,6 +129,17 @@ void render_scene(const Scene *scene)
     glRotated(90, 1, 0, 0);
     glTranslatef(1, 0, 1);
     draw_model(&(scene->penguin));
+    glPopMatrix();
+
+    // sword
+
+    glPushMatrix();
+    glVertex3f(0.5, -2.5, 1);
+    glTranslatef(0.5, scene->sword.sword_y, 1);
+    glScalef(0.5, 0.5, 0.5);
+    glBindTexture(GL_TEXTURE_2D, scene->sword.sword_texture_id);
+    glRotated(0, 1, 0, 0);
+    draw_model(&(scene->sword.sword));
     glPopMatrix();
 
     health(&(scene->sword));
